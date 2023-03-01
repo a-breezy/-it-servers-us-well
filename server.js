@@ -5,7 +5,7 @@ const cors = require("cors");
 const axios = require("axios");
 require("dotenv").config();
 
-const port = 3001;
+const PORT = process.env.PORT || 3001;
 
 // put api key into env variable
 const apiKey = process.env.API_Auth;
@@ -43,6 +43,6 @@ app.get("/CORS/yelp", (req, res) => {
 	res.send("CORS solved");
 });
 
-app.listen(port, () => {
-	console.log(`CORS Server listening on port ${port}`);
+app.listen(PORT, () => {
+	console.log(`CORS Server listening on port ${PORT}`);
 });
