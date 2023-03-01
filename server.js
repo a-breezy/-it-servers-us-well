@@ -3,12 +3,12 @@ const app = express();
 
 const cors = require("cors");
 const axios = require("axios");
+require("dotenv").config();
 
 const port = 3001;
 
 // put api key into env variable
-const apiKey =
-	"CDqKBRP7iYiMuUl_tYS7sDBX3C5xLJNuivwzr6AZNaNRGiW_V75GrfMol9YmHcgmb6n4IKNt756mp_1crvVaCJ_nPH4aT5SmXmtmDDzcZfRf5E8HWxsKRWbgzg_9Y3Yx";
+const apiKey = process.env.API_Auth;
 
 // set options for axios to make cors request
 const corsOptions = {
@@ -19,7 +19,7 @@ const corsOptions = {
 		"Content-Type": "application/json",
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET",
-		Authorization: "Bearer " + apiKey,
+		Authorization: apiKey,
 	},
 };
 
