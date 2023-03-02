@@ -6,13 +6,10 @@ const axios = require("axios");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
-
-// put api key into env variable
 const apiKey = process.env.API_Auth;
 
 // set options for axios to make cors request
 const corsOptions = {
-	// origin: "https://api.yelp.com/v3/businesses/search?location=10024",
 	method: "GET",
 	headers: {
 		accept: "application/json",
@@ -29,15 +26,26 @@ app.use(
 	})
 );
 
-app.get("/CORS/yelp", (req, res) => {
-	let endpoint = "https://api.yelp.com/v3/";
-	let queryParams = "businesses/search?location=" + "10024";
+// app.get("/CORS/yelp", (req, res) => {
+app.get(":endpoint([\\/\\w\\.-]*)", (req, res) => {
+	// let location = req.params.location;
+	console.log("the endpoint is", req.params.endpoint);
+
+	let endpoint = "https://api.yelp.com/v3/" + req.params.endpoint;
+	console.log("endpoint is", endpoint);
+	// let queryParams = "businesses/search?location=" + "10024";
+	// console.log(location);
+	// let queryParams = "businesses/search?location=" + location;
 
 	axios
-		.get(endpoint + queryParams, corsOptions)
-		.then((response) => console.log(response.data.businesses[0]))
+		.get(endpoint, corsOptions)
+		// .then((response) => console.log(response.data.businesses[0]))
+		.then((response) => {
+			// res.json(response.data)
+			return response;
+		})
 		.catch(function (error) {
-			console.log(error);
+			// console.log(error);
 		});
 
 	res.send("CORS solved");
