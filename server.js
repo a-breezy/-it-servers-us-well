@@ -28,11 +28,12 @@ app.use(
 
 // app.get("/CORS/yelp", (req, res) => {
 app.get(":endpoint([\\/\\w\\.-]*)", (req, res) => {
+	console.log("the request obj is", req.query);
 	// let location = req.params.location;
-	console.log("the endpoint is", req.params.endpoint);
+	console.log("the sent endpoint is", req.params.endpoint);
 
-	let endpoint = "https://api.yelp.com/v3/" + req.params.endpoint;
-	console.log("endpoint is", endpoint);
+	let endpoint = "https://api.yelp.com/v3/" + req.originalUrl;
+	console.log("final endpoint is", endpoint);
 	// let queryParams = "businesses/search?location=" + "10024";
 	// console.log(location);
 	// let queryParams = "businesses/search?location=" + location;
