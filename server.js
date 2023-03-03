@@ -26,30 +26,17 @@ app.use(
 	})
 );
 
-// app.get("/CORS/yelp", (req, res) => {
-app.get(":endpoint([\\/\\w\\.-]*)", (req, res) => {
-	console.log("the request obj is", req.query);
-	// let location = req.params.location;
-	console.log("the sent endpoint is", req.params.endpoint);
-
-	let endpoint = "https://api.yelp.com/v3/" + req.originalUrl;
-	console.log("final endpoint is", endpoint);
-	// let queryParams = "businesses/search?location=" + "10024";
-	// console.log(location);
-	// let queryParams = "businesses/search?location=" + location;
-
+app.get("/businesses/search", (req, res) => {
+	let endpoint = "https://api.yelp.com/v3" + req.originalUrl;
 	axios
 		.get(endpoint, corsOptions)
-		// .then((response) => console.log(response.data.businesses[0]))
 		.then((response) => {
-			// res.json(response.data)
-			return response;
+			data = response.data.businesses;
+			res.send(data);
 		})
 		.catch(function (error) {
-			// console.log(error);
+			console.log(error);
 		});
-
-	res.send("CORS solved");
 });
 
 app.listen(PORT, () => {
