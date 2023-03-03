@@ -20,12 +20,14 @@ const corsOptions = {
 	},
 };
 
+// use cors middleware to allow resource sharing
 app.use(
 	cors({
 		origin: "*",
 	})
 );
 
+// get yelp request and send response to frontend
 app.get("/businesses/search", (req, res) => {
 	let endpoint = "https://api.yelp.com/v3" + req.originalUrl;
 	axios
@@ -36,6 +38,7 @@ app.get("/businesses/search", (req, res) => {
 		})
 		.catch(function (error) {
 			console.log(error);
+			res.send({ error });
 		});
 });
 
